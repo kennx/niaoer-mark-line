@@ -1,5 +1,6 @@
 {
-  "name": "chrome-extension-boilerplate-react-vite",
+  "name": "niaoer-mark-line",
+  "appName": "niaoer mark line",
   "version": "0.0.1",
   "description": "chrome extension boilerplate",
   "license": "MIT",

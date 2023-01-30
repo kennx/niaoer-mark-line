@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "chrome-extension-boilerplate-react-vite",
+  "name": "niaoer mark line",
   "version": "0.0.1",
   "description": "chrome extension boilerplate",
   "options_page": "src/pages/options/index.html",
