@@ -1,11 +1,13 @@
-import "@webcomponents/custom-elements";
-
-class MarkLineHTMLElement extends HTMLElement {
+export default class MarkLineHTMLElement extends HTMLElement {
+  shadowRoot: ShadowRoot;
   constructor() {
     super();
-    const shadowRoot = this.attachShadow({ mode: "open" });
+    this.shadowRoot = this.attachShadow({ mode: "open" });
+    this.render();
+  }
+
+  addStyle() {
     const styleNode = document.createElement("style");
-    const slotNode = document.createElement("slot");
     styleNode.textContent = `:host {
       all: inherit;
       display: inline;
@@ -15,13 +17,12 @@ class MarkLineHTMLElement extends HTMLElement {
       text-decoration-color: red;
       text-decoration-skip-ink: none;
     }`;
-    shadowRoot.appendChild(styleNode);
-    shadowRoot.appendChild(slotNode);
+    this.shadowRoot.appendChild(styleNode);
   }
-}
 
-export function addCustomElement() {
-  customElements.define("niaoer-mark-line", MarkLineHTMLElement, {
-    extends: "span",
-  });
+  render() {
+    this.addStyle();
+    const slotNode = document.createElement("slot");
+    this.shadowRoot.appendChild(slotNode);
+  }
 }

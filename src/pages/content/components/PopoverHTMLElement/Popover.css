@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:host,
+:root {
+  @apply font-sans text-gray-800;
+}
+
+.popover {
+  @apply bg-gray-200 rounded-md shadow-md border-t-gray-100 border-gray-100 border-b-gray-300 border-r-gray-300 border-[1px] ;
+}
+
+.popover-container {
+  @apply border-[1px] border-t-white border-l-white border-r-gray-200 border-b-gray-200;
+}
+
+.popover-title {
+  @apply font-bold px-3 py-2 bg-transparent m-0 text-lg;
+}
+
+.popover-content {
+  @apply px-3;
+}
+
+.popover-note {
+  @apply outline-none;
+}

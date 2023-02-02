@@ -1,12 +1,12 @@
 {
-  "name": "niaoer-mark-line",
-  "appName": "niaoer mark line",
+  "name": "niaoer-markline",
+  "appName": "鸟标线",
   "version": "0.0.1",
-  "description": "chrome extension boilerplate",
+  "description": "「鸟标线」是一个网页标注扩展",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite.git"
+    "url": "https://github.com/kennx/niaoer-markline"
   },
   "scripts": {
     "build": "tsc --noEmit && vite build",
