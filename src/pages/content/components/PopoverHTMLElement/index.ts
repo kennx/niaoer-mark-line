@@ -2,14 +2,7 @@ import styleText from "@pages/content/components/PopoverHTMLElement/Popover.css"
 
 const template = `
   <div class="popover">
-    <div class="popover-container">
-      <header class="popover-header">
-        <h1 class="popover-title">$title</h1>
-      </header>
-      <footer class="popover-footer">
-        $foot
-      </footer>
-    </div>
+    cc
   </div>
 `;
 
