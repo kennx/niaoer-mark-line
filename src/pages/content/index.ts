@@ -1,21 +1,8 @@
-/**
- * @description
- * Chrome extensions don't support modules in content scripts.
- */
-
-// import("./components/Demo");
-
 import "@webcomponents/custom-elements";
 import MarkLineHTMLElement from "./components/MarkLineHTMLElement";
 import PopoverHTMLElement from "./components/PopoverHTMLElement";
 
-interface IRect {
-  x: number;
-  y: number;
-  top: number;
-  bottom: number;
-}
-
+const ZINDEX = "2147483647";
 const POPOVER_TAG_NAME = "niaoer-popover";
 
 if (!customElements.get("niaoer-markline")) {
@@ -52,9 +39,11 @@ function setPopoverPosition(rect: DOMRect, isForward: boolean) {
   const maxRight =
     rootRect.width - niaoerPopoverNode.getBoundingClientRect().width;
 
+  const popoverHeight = niaoerPopoverNode.getBoundingClientRect().height + 20;
+
   console.log(maxRight, "max right...");
 
-  niaoerPopoverNode.style.zIndex = "99999999";
+  niaoerPopoverNode.style.zIndex = ZINDEX;
   niaoerPopoverNode.style.opacity = "1";
 
   if (isForward) {
@@ -67,7 +56,7 @@ function setPopoverPosition(rect: DOMRect, isForward: boolean) {
   console.log("isForward", isForward);
   console.log(rect, "rect");
 
-  niaoerPopoverNode.style.top = `${rect.top + rect.height + pageY}px`;
+  niaoerPopoverNode.style.top = `${rect.top - popoverHeight + pageY}px`;
 }
 
 function addPopover() {
@@ -77,7 +66,7 @@ function addPopover() {
   if (!niaoerPopoverNode.getAttribute("style")) {
     niaoerPopoverNode.setAttribute(
       "style",
-      `position: absolute; width: 300px; left: inherit; right: inherit; top: inherit; opacity: 0; transition: all .2s linear; z-index: -99999;`
+      `position: absolute; width: 40px; left: inherit; right: inherit; top: inherit; opacity: 0; transition: all .2s linear; z-index: -${ZINDEX};`
     );
   }
 
@@ -85,17 +74,7 @@ function addPopover() {
     niaoerWrapper = createPopoverWrapper();
   }
   niaoerWrapper.appendChild(niaoerPopoverNode);
-  document.body.appendChild(niaoerWrapper);
-}
-
-function insertMarkline(text: string): HTMLElement | null {
-  let niaoerNode = null;
-  if (!customElements.get("niaoer-markline")) {
-    customElements.define("niaoer-markline", MarkLineHTMLElement);
-  }
-  niaoerNode = document.createElement("niaoer-markline");
-  niaoerNode.textContent = text;
-  return niaoerNode;
+  document.documentElement.appendChild(niaoerWrapper);
 }
 
 document.addEventListener("selectstart", selectionHandler);
@@ -105,7 +84,7 @@ function transitionEnd() {
     "#__niaoer__markline__ > niaoer-popover"
   );
   if (!Number(niaoerPopoverNode.style.opacity)) {
-    niaoerPopoverNode.style.zIndex = "-9999999";
+    niaoerPopoverNode.style.zIndex = `-${ZINDEX}`;
   }
   niaoerPopoverNode.removeEventListener("transitionend", transitionEnd);
 }
@@ -164,10 +143,10 @@ function getClientRects(range: Range, isForward: boolean) {
     height: rect.height,
     left: rect.left,
     right: rect.right,
-    top: Math.max(...clientRects.map((rect) => rect.top)),
+    top: Math.min(...clientRects.map((rect) => rect.top)),
     width: rect.width,
     x: rect.x,
-    y: rect.y,
+    y: Math.min(...clientRects.map((rect) => rect.top)),
   } as DOMRect;
 }
 
