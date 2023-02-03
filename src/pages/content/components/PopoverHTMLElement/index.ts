@@ -28,8 +28,7 @@ export default class PopoverHTMLElement extends HTMLElement {
 
   render() {
     this.addStyle();
-    const doc = stringToHTML(template);
-    console.log(doc);
-    this.shadowRoot.appendChild(doc);
+    const _document = stringToHTML(template);
+    this.shadowRoot.appendChild(_document);
   }
 }
